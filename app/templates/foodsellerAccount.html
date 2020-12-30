@@ -1,0 +1,111 @@
+{% extends 'layout.html' %}
+{% block content %}
+     <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ image_file }}">
+        <div class="media-body">
+          <h2 class="account-heading">{{ current_user.foodsellerName }}</h2>
+               <h3 class="text-secondary">{{ current_user.email }}</h3>
+        </div>
+      </div>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {{form.hidden_tag()}}
+            <fieldset class ='form-group'>
+                      <legend class="border-bottom mb-4"> Account Info </legend>
+                      <div class="form-group">
+                          {{ form.foodsellerName.label(class="form-control-label")}}
+                          {% if form.foodsellerName.errors %}
+                            {{ form.foodsellerName(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {%  for error in form.foodsellerName.errors %}
+                                     <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                          {% else %}
+                             {{ form.foodsellerName(class="form-control form-control-lg")}}
+                          {% endif %}
+                      </div>
+                      <div class="form-group">
+                          {{ form.email.label(class="form-control-label")}}
+                          {% if form.email.errors %}
+                            {{ form.email(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {%  for error in form.email.errors %}
+                                     <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                          {% else %}
+                             {{ form.email(class="form-control form-control-lg")}}
+                          {% endif %}
+                      </div>
+                      <div class="form-group">
+                          {{ form.city.label(class="form-control-label")}}
+                          {% if form.city.errors %}
+                            {{ form.city(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {%  for error in form.city.errors %}
+                                     <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                          {% else %}
+                             {{ form.city(class="form-control form-control-lg")}}
+                          {% endif %}
+                      </div>
+                      <div class="form-group">
+                          {{ form.address.label(class="form-control-label")}}
+                          {% if form.address.errors %}
+                            {{ form.address(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {%  for error in form.address.errors %}
+                                     <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                          {% else %}
+                             {{ form.address(class="form-control form-control-lg")}}
+                          {% endif %}
+                      </div>
+                      <div class="form-group">
+                          {{ form.phone_number.label(class="form-control-label")}}
+                          {% if form.phone_number.errors %}
+                            {{ form.phone_number(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {%  for error in form.phone_number.errors %}
+                                     <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                          {% else %}
+                             {{ form.phone_number(class="form-control form-control-lg")}}
+                          {% endif %}
+                      </div>
+                      <div class="form-group">
+                          {{ form.opening_hours.label(class="form-control-label")}}
+                          {% if form.opening_hours.errors %}
+                            {{ form.opening_hours(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {%  for error in form.opening_hours.errors %}
+                                     <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                          {% else %}
+                             {{ form.opening_hours(class="form-control form-control-lg")}}
+                          {% endif %}
+                      </div>
+                      <div class="form-group">
+                          {{ form.picture.label() }}
+                          <input type="file" name="picture" class="form-control-file">
+                          {% if form.picture.errors %}
+                               {%  for error in form.picture.errors %}
+                                 <span class="text-danger">{{ error }}</span> </br>
+                               {% endfor %}
+                          {% endif %}
+                      </div>
+
+
+            </fieldset>
+            <div class="form-group">
+                {{form.submit(class='btn btn-outline-info')}}
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

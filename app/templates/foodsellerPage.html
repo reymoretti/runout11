@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block content %}
+  {% for offer in offers %}
+      {% if offer.seller == current_user %}
+        <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ url_for('static', filename='pictures/' + offer.seller.image_file) }}">
+           <div class="media-body">
+               <div class="'article-metadata">
+                   <a class="'mr-2" href="{{url_for('foodsellerAccount')}}">{{offer.seller.foodsellerName}}</a>
+                   <small class="text-muted">{{offer.date_posted.strftime('%Y-%m-%d')}}</small>
+               </div>
+               <h2><a class="article-title" href="{{ url_for('offer', offer_id=offer.id) }}">{{offer.offer_name}} - {{ offer.price }}€</a></h2>
+           </div>
+         </article>
+      {% endif %}
+  {% endfor %}
+{% endblock content%}

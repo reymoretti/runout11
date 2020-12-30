@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<p> You have {{ selected_offers_number }} items in your shopping list</p>
+
+{% for offer in offer %}
+    {% for off in selected_offers %}
+        {% if offer.id==off.offer_id %}
+          <article class="media content-section">
+             <div class="media-body">
+               <h2><a class="article-title" href="{{ url_for('offer', offer_id=off.offer_id)}}">{{offer.offer_name}} - {{ offer.price }}€</a></h2>
+               <a class="btn btn-secondary btn-sm ml-7" href="{{ url_for('remove_from_shoplist',offer_id = off.offer_id)}}"> Remove from shopping list  </a>
+             </div>
+          </article>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+{% endblock content %}

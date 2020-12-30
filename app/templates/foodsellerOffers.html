@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block content %}
+       <h3>{{ foodseller.foodsellerName }} </h3>
+       <p style="margin-top:-3px;">Address: {{ foodseller.address }} </p>
+       <p style="margin-top:-20px;">Phone Number: {{ foodseller.phone_number }} </p>
+       <p style="margin-top:-20px;">Opening Hours: {{ foodseller.opening_hours }} </p>
+       <p style="margin-top:-2px;"> These are the current offers ({{offers_number}}) provided by {{ foodseller.foodsellerName }}</p>
+       {% for offer in offers %}
+          {% if offer.seller.city == current_user.city %}
+            <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename='pictures/' + offer.seller.image_file) }}">
+               <div class="media-body">
+                   <div class="'article-metadata">
+                       <a class="mr-2" href="{{ url_for('foodseller_offers', foodsellerName=foodseller.foodsellerName) }}">{{offer.seller.foodsellerName}} - </a>
+                       <a class="mr-2" href="#">{{offer.seller.address}}</a>
+                       <small class="text-muted ml-2">{{offer.date_posted.strftime('%Y-%m-%d')}}</small>
+                   </div>
+                   <h2><a class="article-title" href="{{ url_for('offer', offer_id=offer.id) }}">{{offer.offer_name}}</a></h2>
+               </div>
+             </article>
+          {% endif %}
+       {% endfor %}
+{% endblock content%}

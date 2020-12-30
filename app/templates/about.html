@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-8">
+         <div class="content-section ">
+             <h4>Our Numbers</h4>
+             <ul class="list-group">
+               <li class="list-group-item list-group-item-light">{{ customers }} people saving food with us</li>
+               <li class="list-group-item list-group-item-light">{{ foodsellers }} food-sellers advertising their products</li>
+               <li class="list-group-item list-group-item-light">{{ offers }} offers available</li>
+             </ul>
+         </div>
+      </div>
+    </div>
+</div>
+
+<footer> Contact us - mail: runoutweb@gmail.com </footer>
+
+{% endblock %}

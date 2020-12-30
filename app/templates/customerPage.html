@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% block content %}
+       <p> These are the offers in your city - {{ current_user.city }}</p>
+       <a class="btn btn-secondary btn-sm mb-4" href="{{ url_for('customerAccount')}}"> Change City  </a>
+       <p class="text-muted">Hint: click on the titles and on the food-sellers to get more details</p>
+       {% for offer in offers %}
+          {% if offer.seller.city == current_user.city %}
+            <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename='pictures/' + offer.seller.image_file) }}">
+               <div class="media-body">
+                   <div class="'article-metadata">
+                       <a class="'mr-2" href="{{ url_for('foodseller_offers', foodsellerName=offer.seller.foodsellerName) }}">{{offer.seller.foodsellerName}} - {{offer.seller.address}} </a>
+                       <small class="text-muted ml-2">{{offer.date_posted.strftime('%Y-%m-%d')}}</small>
+                   </div>
+                   <h2><a class="article-title" href="{{ url_for('offer', offer_id=offer.id) }}">{{offer.offer_name}} - {{ offer.price }}€</a></h2>
+               </div>
+               {% if offer.id not in selected_offers_id %}
+                       <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('my_shopping_list',offer_id = offer.id)}}"> Add to your shopping list  </a>
+               {% else %}
+                       <small>Offer added to shopping list</small>
+               {% endif %}
+             </article>
+          {% endif %}
+       {% endfor %}
+{% endblock content%}
+
