@@ -1,21 +1,104 @@
 {% extends 'layout.html' %}
 {% block content %}
+<h2> What we do </h2>
+    <p> Every year, Italian supermarkets waste around 220 000 tons of food. </p>
 
-<div class="container">
-    <div class="row">
-      <div class="col-md-8">
-         <div class="content-section ">
-             <h4>Our Numbers</h4>
-             <ul class="list-group">
-               <li class="list-group-item list-group-item-light">{{ customers }} people saving food with us</li>
-               <li class="list-group-item list-group-item-light">{{ foodsellers }} food-sellers advertising their products</li>
-               <li class="list-group-item list-group-item-light">{{ offers }} offers available</li>
-             </ul>
-         </div>
-      </div>
+    <p> The main goal of RunOut is to reduce food waste, connecting food-sellers and potential
+    customers in order to highlight the <mark> discounted near-expiry products </mark> still
+    available in the stores.
+    </p>
+
+<h2> Numbers </h2>
+<div class="row">
+    <div class="column">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-light">{{ customers }} people saving food with us</li>
+            <li class="list-group-item list-group-item-light">{{ foodsellers }} food-sellers advertising their products</li>
+            <li class="list-group-item list-group-item-light">{{ offers }} offers available</li>
+        </ul>
     </div>
 </div>
 
-<footer> Contact us - mail: runoutweb@gmail.com </footer>
+<p><h2>Benefits for customers </h2>
+    Customers can easily find discounted food in nearby supermarkets, being able to decrease the cost
+    of groceries. They can also create a handy shopping list to help them keep track of the products
+    during the actual shopping in the various stores. It is also possible to write and read reviews
+    about the different supermarkets, giving the possibility to share advice and opinions among the
+    customers.
+<p><h2>Benefits for food-sellers </h2>
+The waste of food is not only an environmental problem but also a waste of resources and money for
+    the whole industry. Our 3 main commercial partners (Coop, Conad and Esselunga) are now able to
+    promote their near expiring product on a dedicated platform. They can apply a discount to an item if
+    its due date is nearing, increasing the possibility of selling it and avoiding waste and loss of money.
+    The platform is also a new and free way to advertise their store locations in major cities to new
+    customers.
+</p>
 
+<h2> Our Commercial Partners </h2> &nbsp &nbsp
+  <div class="column">
+    <div class="card">
+      <div class="container">
+        <p>&nbsp</p>
+        <img src="https://upload.wikimedia.org/wikipedia/en/0/0a/Italian_Conad_Logo.png" alt="conad" style="width:30%">
+        <p>&nbsp</p>
+        <p class="title">2938 stores in Italy and 5 other countries</p>
+        <p>Conad is an Italian retail store brand which operates one of the largest supermarket chains
+            in Italy. Created in 1962, it is a cooperative system of entrepreneurs, dealing in
+            large-scale distribution.</p>
+      </div>
+    </div>
+  </div> &nbsp &nbsp
+  <div class="column">
+    <div class="card">
+      <div class="container">
+        <p>&nbsp</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Coop_italia_logo.svg/1920px-Coop_italia_logo.svg.png" alt="Coop" style="width:25%">
+        <p>&nbsp</p>
+        <p class="title">1444 stores in Italy</p>
+        <p>Coop is a system of Italian consumers' cooperatives which operates the largest
+            supermarket chain in Italy. Its headquarters are located in Casalecchio di Reno,
+            Province of Bologna. The first cooperative shop was established in Turin in 1854. </p>
+      </div>
+    </div>
+  </div> &nbsp &nbsp
+  <div class="column">
+    <div class="card">
+      <div class="container">
+        <p>&nbsp</p>
+        <img src="https://upload.wikimedia.org/wikipedia/it/thumb/f/fa/Logo_esselunga.png/1920px-Logo_esselunga.png" alt="Esselunga" style="width:25%">
+        <p>&nbsp</p>
+        <p class="title">160 stores in Italy </p>
+        <p>Esselunga S.p.A. is an Italian retail store chain founded in 1957.
+            It was the first supermarket chain in Italy to introduce on-line shopping and self-produced
+            organic products.</p>
+      </div>
+    </div>
+  </div>
+&nbsp &nbsp
+&nbsp &nbsp
+<h2> Who are we? </h2>
+<p>
+    We are a start-up made of 6 students from the Polytechnic of Turin.
+    We have different engineering background spacing from mechanical, management,
+    aerospace and biomedical and now studying for an MSC in Engineering and Management.
+    Our group can also count on a strong multicultural composition having members both from Europe
+    and the Middle East. We have always been very passionate about the environmental problems
+    still present in our day-to-day lives; therefore, we decide to use our skills to deal with
+    the waste of food that everyday occurs in the supermarkets industry.
+</p>
+    &nbsp &nbsp
+    &nbsp &nbsp
+    &nbsp &nbsp
+    &nbsp &nbsp
+    &nbsp &nbsp
+<h4>Contact us: runoutweb@gmail.com</h4>
+
+    &nbsp &nbsp
+    &nbsp &nbsp
+    &nbsp &nbsp
+    &nbsp &nbsp
+    &nbsp &nbsp
+    &nbsp &nbsp
+    &nbsp &nbsp
+    &nbsp &nbsp
 {% endblock %}

@@ -4,9 +4,9 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort, session
 from app import app, db, bcrypt, mail
 from app.forms import (RegistrationFormCustomer, RegistrationFormFoodseller, LoginForm,
-                       UpdateCustomerAccountForm, UpdateFoodsellerAccountForm, OfferForm,
-                       RequestResetForm, ResetPasswordForm)
-from app.models import Customer, Foodseller, Offer, OfferInShoppingList
+                       UpdateCustomerAccountForm, UpdateFoodsellerAccountForm, OfferForm, ReviewForm,
+                       SearchForm, RequestResetForm, ResetPasswordForm)
+from app.models import Customer, Foodseller, Offer, OfferInShoppingList, Review
 from flask_login import login_user, current_user, logout_user, login_required
 from app import send_email
 from flask_mail import Message
@@ -28,7 +28,7 @@ def registerFoodseller():
         hashed_password = bcrypt.generate_password_hash(form.password.data.decode('utf-8'))
         register = Foodseller(foodsellerName=form.foodsellerName.data,
                               email=form.email.data,
-                              city=form.city.data,
+                              city=form.city.data.upper(),
                               address=form.address.data,
                               phone_number=form.phone_number.data,
                               opening_hours=form.opening_hours.data,
@@ -54,7 +54,7 @@ def registerCustomer():
                             name=form.name.data,
                             surname=form.surname.data,
                             email=form.email.data,
-                            city=form.city.data,
+                            city=form.city.data.upper(),
                             password=hashed_password)
         db.session.add(register)
         db.session.commit()
@@ -123,7 +123,7 @@ def customerAccount():
         current_user.email = form.email.data
         current_user.name = form.name.data
         current_user.surname = form.surname.data
-        current_user.city = form.city.data
+        current_user.city = form.city.data.upper()
         db.session.commit()
         flash('Account updated')
         return redirect(url_for('customerAccount'))
@@ -147,7 +147,7 @@ def foodsellerAccount():
             current_user.image_file = picture_file
         current_user.foodsellerName = form.foodsellerName.data
         current_user.email = form.email.data
-        current_user.city = form.city.data
+        current_user.city = form.city.data.upper()
         current_user.address = form.address.data
         current_user.phone_number = form.phone_number.data
         current_user.opening_hours = form.opening_hours.data
@@ -333,5 +333,67 @@ def reset_token(token):
             flash('Password updated, you can login now')
             return redirect(url_for('login'))
     return render_template('reset_token.html', title='Reset Password', form=form)
+
+@app.route("/review/<int:foodseller_id>", methods=['GET','POST','DELETE'])
+def new_review(foodseller_id):
+    form = ReviewForm()
+    if form.validate_on_submit():
+        review = Review(vote=form.vote.data, text=form.text.data,
+                        customer_id=current_user.id, foodseller_id=foodseller_id)
+        db.session.add(review)
+        db.session.commit()
+        foodsellerName=review.foodseller.foodsellerName
+        flash('Review created!')
+        return redirect(url_for('foodseller_reviews', foodsellerName=foodsellerName))
+    return render_template('create_review.html', title='New Review', form=form, legend='New Review')
+
+@app.route("/foodseller_reviews/<string:foodsellerName>", methods=['GET','POST'])
+def foodseller_reviews(foodsellerName):
+    foodseller = Foodseller.query.filter_by(foodsellerName=foodsellerName).first_or_404()
+    reviews = Review.query.filter_by(foodseller_id=foodseller.id)
+    return render_template('reviews.html', reviews=reviews, foodseller=foodseller, title='Reviews', legend='All Reviews')
+
+@app.route('/review/<int:review_id>/delete',methods=['POST'])
+def delete_review(review_id):
+    review = Review.query.get_or_404(review_id)
+    foodsellerName = review.foodseller.foodsellerName
+    db.session.delete(review)
+    db.session.commit()
+    flash('Review deleted!')
+    return redirect(url_for('foodseller_reviews', foodsellerName=foodsellerName))
+
+@app.route("/search_request", methods=['GET','POST'])
+def search_request():
+    form = SearchForm()
+    if form.validate_on_submit():
+        offers = Offer.query.filter_by(offer_name=form.offer_name.data)
+        offs = []
+        for offer in offers:
+            offs.append(offer.offer_name)
+        comma_separated = ','.join(offs) #we create a string from the list of the names of the offers
+                                         #to be able to send them to the next route
+        return redirect(url_for('search_results', offers=comma_separated))
+    return render_template('searchRequest.html', form=form)
+
+@app.route("/search_results/<string:offers>", methods=['GET','POST'])
+def search_results(offers):
+    offers = offers.split(',') #it is a string, so we need to create a list of offers (objects)
+    all_offers = Offer.query.all()
+    offer_objects = []
+    l1 = []
+    for offer in all_offers:
+        for off in offers:
+            if offer.offer_name.lower() == off.lower():
+                offer_objects.append(offer)
+    selected_offers = OfferInShoppingList.query.filter_by(customer_id=current_user.id)
+    selected_offers_id = [x.offer_id for x in selected_offers]  # we create a list of id of selected items
+    return render_template('search.html', offers=offer_objects, selected_offers_id=selected_offers_id,
+                           title='Search', legend='Search results')
+
+
+@app.errorhandler(404)
+def invalid_route(e):
+    flash('There is no offers matching your search terms')
+    return redirect(url_for('search_request'))
 
 

@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% block content %}
+      &nbsp &nbsp
+<p style="margin-top:-2px;"> What customers say about {{ foodseller.foodsellerName }}: </p>
+       &nbsp &nbsp
+       <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('new_review',foodseller_id = foodseller.id)}}">Create review</a>
+       &nbsp &nbsp
+       {% for review in reviews %}
+           <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename='pictures/' + review.customer.image_file) }}">
+                <div class="media-body">
+                       <div class="'article-metadata">
+                           <p class="'article-content">{{review.customer.username}}</p>
+                           <p class="'article-content">Vote: {{review.vote}}/5</p>
+                           <p class="'article-content">{{review.text}}</p>
+                       </div>
+                       {% if current_user.id==review.customer.id %}
+                         <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal" >Delete</button>
+                       {% endif %}
+                </div>
+           </article>
+           <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="deleteModalLabel">Delete Review?</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <form action="{{ url_for('delete_review', review_id=review.id) }}" method="POST">
+                    <input class="btn btn-danger" type="submit" value="Delete">
+                  </form>
+                </div>
+              </div>
+            </div>
+           </div>
+       {% endfor %}
+
+
+
+{% endblock content %}

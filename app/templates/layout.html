@@ -19,13 +19,13 @@
         /* Modify the background color */
 
         .navbar-custom {
-            background-color: lightgreen;
+            background-color: #e74c3c;
         }
         /* Modify brand and text color */
 
         .navbar-custom .navbar-brand,
         .navbar-custom .navbar-text {
-            color: green;
+            color: white;
         }
     </style>
 </head>
@@ -33,38 +33,38 @@
  <header class="site-header">
    <nav class="navbar navbar-expand-md navbar-custom bg-steel fixed-top">
      <div class="container">
-       <a class="navbar-brand mr-4" style="color: darkgreen" href="/">RunOut</a>
+       <img src="{{url_for('static', filename='RunOut.png')}}" align="left" style="width:4%"/>
        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
        </button>
        <div class="collapse navbar-collapse" id="navbarToggle">
          <div class="navbar-nav mr-auto">
-           <a class="nav-item nav-link" style="color: darkgreen" href="{{ url_for('about') }}">About Us</a>
+           <a class="nav-item nav-link" style="color: whitesmoke" href="{{ url_for('about') }}">About Us</a>
              {% if current_user.is_authenticated %}
                  {% if session['type'] == 'customer' %}
-                   <a class="nav-item nav-link" style="color: darkgreen" href="{{ url_for('customerPage') }}">Home Page</a>
-                   <a class="nav-item nav-link" style="color: darkgreen" href="{{ url_for('shoplist') }}">My Shopping List</a>
+                   <a class="nav-item nav-link" style="color: whitesmoke" href="{{ url_for('customerPage') }}">Home Page</a>
+                   <a class="nav-item nav-link" style="color: whitesmoke" href="{{ url_for('shoplist') }}">My Shopping List</a>
                  {% else %}
-                   <a class="nav-item nav-link" style="color: darkgreen" href="{{ url_for('foodsellerPage') }}">Home Page</a>
-                   <a class="nav-item nav-link" style="color: darkgreen" href="{{ url_for('new_offer') }}">New Offer</a>
+                   <a class="nav-item nav-link" style="color: whitesmoke" href="{{ url_for('foodsellerPage') }}">Home Page</a>
+                   <a class="nav-item nav-link" style="color: whitesmoke" href="{{ url_for('new_offer') }}">New Offer</a>
                  {% endif %}
              {% endif %}
          </div>
          <!-- Navbar Right Side -->
          <div class="navbar-nav">
              {% if current_user.is_authenticated %}
-                 <a class="nav-item nav-link" style="color: darkgreen" href="{{ url_for('logout') }}">Logout</a>
+                 <a class="nav-item nav-link" style="color: whitesmoke" href="{{ url_for('logout') }}">Logout</a>
                  {% if session['type'] == 'customer' %}
-                    <a class="nav-item nav-link" style="color: darkgreen" href="{{ url_for('customerAccount') }}">Customer Account</a>
+                    <a class="nav-item nav-link" style="color: whitesmoke" href="{{ url_for('customerAccount') }}">Customer Account</a>
                     <a class="nav-item nav-link" style="color: whitesmoke">{{ current_user.username }}</a>
                  {% else %}
-                   <a class="nav-item nav-link" style="color: darkgreen" href="{{ url_for('foodsellerAccount') }}">Foodseller Account</a>
+                   <a class="nav-item nav-link" style="color: whitesmoke" href="{{ url_for('foodsellerAccount') }}">Foodseller Account</a>
                    <a class="nav-item nav-link" style="color: whitesmoke">{{ current_user.foodsellerName }}</a>
                  {% endif %}
              {% else %}
-           <a class="nav-item nav-link" style="color: darkgreen" href="{{ url_for('login') }}">Login</a>
-           <a class="nav-item nav-link" style="color: darkgreen" href="{{ url_for('registerFoodseller') }}">Sign Up Foodseller</a>
-           <a class="nav-item nav-link" style="color: darkgreen" href="{{ url_for('registerCustomer') }}">Sign Up Customer</a>
+           <a class="nav-item nav-link" style="color: whitesmoke" href="{{ url_for('login') }}">Login</a>
+           <a class="nav-item nav-link" style="color: whitesmoke" href="{{ url_for('registerFoodseller') }}">Sign Up Foodseller</a>
+           <a class="nav-item nav-link" style="color: whitesmoke" href="{{ url_for('registerCustomer') }}">Sign Up Customer</a>
              {% endif %}
          </div>
        </div>

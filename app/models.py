@@ -16,6 +16,7 @@ class Customer(db.Model, UserMixin):
     city = db.Column(db.String(20), nullable=False)
     password = db.Column(db.String(60), nullable=False)
     shopping_list = db.relationship('OfferInShoppingList', backref='list', lazy=True, cascade="all, delete")
+    review = db.relationship('Review', backref='customer', lazy=True)
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(app.config['SECRET_KEY'], expires_sec)
@@ -45,6 +46,7 @@ class Foodseller(db.Model, UserMixin):
     opening_hours = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(20), nullable=False)
     offers = db.relationship('Offer', backref='seller', lazy=True)
+    review = db.relationship('Review', backref='foodseller', lazy=True)
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(app.config['SECRET_KEY'], expires_sec)
@@ -87,6 +89,15 @@ class OfferInShoppingList(db.Model):
 
     def __repr__(self):
         return "OfferInShoppingList(%r, %r)" % (self.offer_id, self.customer_id)
+
+class Review(db.Model):
+    __tablename__ = 'Review'
+    id = db.Column(db.Integer, primary_key=True)
+    vote = db.Column(db.Integer, nullable=False)
+    text = db.Column(db.String(300))
+    customer_id = db.Column(db.Integer, db.ForeignKey('Customer.id'), nullable=False)
+    foodseller_id = db.Column(db.Integer, db.ForeignKey('Foodseller.id'), nullable=False)
+
 
 @login_manager.user_loader
 def load_user(user_id):

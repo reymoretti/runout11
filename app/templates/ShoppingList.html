@@ -7,10 +7,15 @@
     {% for off in selected_offers %}
         {% if offer.id==off.offer_id %}
           <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ url_for('static', filename='pictures/' + offer.seller.image_file) }}">
              <div class="media-body">
+               <div class="'article-metadata">
+                       <a class="'mr-2" href="{{ url_for('foodseller_offers', foodsellerName=offer.seller.foodsellerName) }}">{{offer.seller.foodsellerName}} - {{offer.seller.address}} </a>
+                       <small class="text-muted ml-2">{{offer.date_posted.strftime('%Y-%m-%d')}}</small>
+               </div>
                <h2><a class="article-title" href="{{ url_for('offer', offer_id=off.offer_id)}}">{{offer.offer_name}} - {{ offer.price }}€</a></h2>
-               <a class="btn btn-secondary btn-sm ml-7" href="{{ url_for('remove_from_shoplist',offer_id = off.offer_id)}}"> Remove from shopping list  </a>
              </div>
+                   <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('remove_from_shoplist',offer_id = off.offer_id)}}"> Remove from shopping list  </a>
           </article>
         {% endif %}
     {% endfor %}

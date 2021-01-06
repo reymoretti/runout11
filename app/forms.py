@@ -152,9 +152,18 @@ class OfferForm(FlaskForm):
     percentage_discount = IntegerField('Discount percentage (without "%") ', validators=[DataRequired()])
     submit = SubmitField('Post')
 
+class ReviewForm(FlaskForm):
+    vote = StringField('Vote from 1 to 5', validators=[DataRequired(), Length(max=1)])
+    text = StringField('Describe your experience', validators=[DataRequired()])
+    submit = SubmitField('Post')
+
+class SearchForm(FlaskForm):
+    offer_name = StringField('Search offer', validators=[DataRequired()])
+    submit = SubmitField('Search')
+
 class RequestResetForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
-    submit = SubmitField('Post')
+    submit = SubmitField('Send reset link')
 
     def validate_email(self, email):
         user = Customer.query.filter_by(email=email.data).first()
@@ -165,3 +174,5 @@ class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired(), Length(min=8)])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset Password')
+
+

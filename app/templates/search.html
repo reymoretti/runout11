@@ -1,15 +1,9 @@
 {% extends 'layout.html' %}
 {% block content %}
-       <p> These are the offers in your city - {{ current_user.city }}</p>
-       <a class="btn btn-secondary btn-sm mb-4" href="{{ url_for('customerAccount')}}"> Change City  </a>
-       &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-       &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-       &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-       <a class="btn btn-secondary btn-sm mb-4" href="{{ url_for('search_request')}}"> Search Offer  </a>
-       <p class="text-muted">Hint: click on the titles and on the food-sellers to get more details</p>
-       {% for offer in offers %}
-          {% if offer.seller.city == current_user.city %}
-            <article class="media content-section">
+
+
+{% for offer in offers %}
+    <article class="media content-section">
             <img class="rounded-circle article-img" src="{{ url_for('static', filename='pictures/' + offer.seller.image_file) }}">
                <div class="media-body">
                    <div class="'article-metadata">
@@ -23,8 +17,7 @@
                {% else %}
                        <small>Offer added to shopping list</small>
                {% endif %}
-             </article>
-          {% endif %}
-       {% endfor %}
-{% endblock content%}
+    </article>
+{% endfor %}
 
+{% endblock content %}

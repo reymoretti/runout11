@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<div class="content-section">
+        <form method="POST" action="">
+            {{form.hidden_tag()}}
+            <fieldset class ='form-group'>
+                      <div class="form-group">
+                          {{ form.offer_name.label(class="form-control-label")}}
+                          {% if form.offer_name.errors %}
+                            {{ form.offer_name(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {%  for error in form.offer_name.errors %}
+                                     <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                          {% else %}
+                             {{ form.offer_name(class="form-control form-control-lg")}}
+                          {% endif %}
+                      </div>
+            </fieldset>
+            <div class="form-group">
+                {{form.submit(class='btn btn-outline-info mt-3')}}
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

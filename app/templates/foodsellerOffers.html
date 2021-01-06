@@ -4,7 +4,9 @@
        <p style="margin-top:-3px;">Address: {{ foodseller.address }} </p>
        <p style="margin-top:-20px;">Phone Number: {{ foodseller.phone_number }} </p>
        <p style="margin-top:-20px;">Opening Hours: {{ foodseller.opening_hours }} </p>
-       <p style="margin-top:-2px;"> These are the current offers ({{offers_number}}) provided by {{ foodseller.foodsellerName }}</p>
+       <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('foodseller_reviews',foodsellerName=foodseller.foodsellerName)}}">Create/see reviews </a>
+       &nbsp &nbsp
+       <p style="margin-top:-2px;"> These are the current offers provided by {{ foodseller.foodsellerName }}: </p>
        {% for offer in offers %}
           {% if offer.seller.city == current_user.city %}
             <article class="media content-section">
@@ -20,4 +22,6 @@
              </article>
           {% endif %}
        {% endfor %}
+       &nbsp &nbsp
+
 {% endblock content%}
